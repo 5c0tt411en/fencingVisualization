@@ -1,8 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxSyphon.h"
+
 #define W 1680
 #define H 84
+#define NUM 300
 #define DEBUG
 
 class ofApp : public ofBaseApp{
@@ -11,18 +14,14 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-		
-    vector <ofVec2f> history;
+    
+    ofVec2f smoothing(vector <ofVec2f> v, float range);
+    void graph(vector <ofVec2f> v, ofColor c, int n, ofVec2f p);
+    void graphDEB(ofColor c, vector <ofVec2f> v, ofVec2f p);
+    
+    vector <ofVec2f> rawHistoryP1, rawHistoryP2;
+    vector <ofVec2f> smoothedDataP1, smoothedDataP2;
+    
+    ofxSyphonServer server;
+    ofFbo fbo;
 };
